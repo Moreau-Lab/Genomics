@@ -1,0 +1,18 @@
+# Log onto the remote machine:
+ssh  labid@cbsuwrkstX.tc.cornell.edu
+
+# Make my own directory in the work directory, and set that directory to my working directory:
+mkdir
+cd 
+
+# On the remote machine, download the ant genomes 
+	## I'm considering instead using wget -i inputfile, so that I can have a text file "inputfile" that lists all the urls for the ant genomes and I'll only have to run wget once. 
+	## I also need to talk to Corrie to find out which specific files I need to download.
+wget https://antgenomes.org/downloads/annotations/Acromyrmex_echinatior/Aech_3.7_Apollo.tgz
+
+# Annotate the genomes with Maker
+	## Helpful info: http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_WGS_Assembly_and_Annotation_Winter_School_2018 and https://biohpc.cornell.edu/lab/userguide.aspx?a=software&i=65#c
+	## "MAKER's annotations can be easily updated with new evidence by passing existing annotation sets back though MAKER."
+	
+	## I think this will also require downloading references for annotation (RNA and protein sequences from related organisms(which?))
+
