@@ -1,18 +1,61 @@
 # Log onto the remote machine:
-ssh  labid@cbsuwrkstX.tc.cornell.edu
-
-# Make my own directory in the work directory, and set that directory to my working directory:
-mkdir
-cd 
+	# Replace "labid" with your NetID, and  the  “X”  with  the  workstation  that  you  just  reserved
+	ssh  labid@cbsuwrkstX.tc.cornell.edu
+# Enter your password 
+	# Move to the work directory 
+	cd /workdir
+	# Make my own directory in the work directory, and set that directory to my working directory:
+	mkdir XXXXX
+	cd XXXXX 
 
 # On the remote machine, download the ant genomes 
-	## I'm considering instead using wget -i inputfile, so that I can have a text file "inputfile" that lists all the urls for the ant genomes and I'll only have to run wget once. 
-	## I also need to talk to Corrie to find out which specific files I need to download.
-wget https://antgenomes.org/downloads/annotations/Acromyrmex_echinatior/Aech_3.7_Apollo.tgz
+	# I'm considering instead using wget -i inputfile, so that I can have a text file "inputfile" that lists all the urls for the ant genomes and I'll only have to run wget once. 
+	# I also need to talk to Corrie to find out which specific files I need to download.
+wget https://antgenomes.org/downloads/genome/Pogonomyrmex_barbatus/GCA_000187915.1_Pbar_genomic.fna.gz
+	wget https://antgenomes.org/downloads/genome/Linepithema_humile/GCA_000217595.1_Lhum_genomic.fna.gz
+	# Unzip the genome files 
+	gunzip *.fna.gz
 
 # Annotate the genomes with Maker
-	## Helpful info: http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_WGS_Assembly_and_Annotation_Winter_School_2018 and https://biohpc.cornell.edu/lab/userguide.aspx?a=software&i=65#c
-	## "MAKER's annotations can be easily updated with new evidence by passing existing annotation sets back though MAKER."
+	# Helpful info: http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_WGS_Assembly_and_Annotation_Winter_School_2018 and https://biohpc.cornell.edu/lab/userguide.aspx?a=software&i=65#c
+	# I should probably do this- "MAKER's annotations can be easily updated with new evidence by passing existing annotation sets back though MAKER."
 	
 	## I think this will also require downloading references for annotation (RNA and protein sequences from related organisms(which?))
+
+# Infer orthogroups with Orthofinder
+		
+	# First, create a directory that will store all of your protein sequences. The results directory will end up being a subdirectory within this directory. Create a directory under /workdir, and put all protein fasta file in the directory, with one file per individual. The file name should be individualName.faa.
+	cd /workdir
+	mkdir AntComparativeGenomicsOrthogroups
+	cd AntComparativeGenomicsOrthogroups
+		
+	# Download annotation files from online.
+	wget https://antgenomes.org/downloads/proteins/Pogonomyrmex_barbatus/pbar_genome.OGS.1.2.maker.proteins.fasta.gz
+	wget https://antgenomes.org/downloads/proteins/Linepithema_humile/lhum_genome.OGS.1.2.maker.proteins.fasta.gz
+
+	# Unzip the annotation files 
+	gunzip *.fasta.gz
+	
+	# Copy Orthofinder to your home directory:
+	cp -r /programs/OrthoFinder-2.3.8_source/orthofinder $HOME/
+
+	# Clean up the annotation files with primary_transcript.py. This will filter out only the longest transcript per gene, and will clean up names in a reasonable way, speeding up the OrthoFinder run. 
+	# I'll need to re-write the path to the script to match what it is on the HPC cluster!!!
+	for f in *fa ; do python ~/orthofinder_tutorial/OrthoFinder/tools/primary_transcript.py $f ; done
+
+
+	# Modify the config.json file as needed. e.g. I modified the diamond setting as below, using 5 CPU core per job, and changed evalue cutoff. for details check the diamond manual
+	diamond blastp -d DATABASE -q INPUT -o OUTPUT --more-sensitive -p 5 --index-chunks 1 --block-size 2 --tmpdir /workdir/qisun/tmp --quiet -e 1e-10 --compress 1
+
+	## set environment
+	export PATH=$HOME/orthofinder:$HOME/orthofinder/bin:/programs/muscle:/programs/RAxML-8.2.12:/programs/raxml-ng_v0.8.1:/programs/iqtree-1.6.10-Linux/bin:/programs/mafft/bin:$PATH
+
+	## command, using diamond for alignment, use "-I 5" for tight cluster, run 4 jobs at a time, use /workdir/tmp as the tmp directory. "-f fasta": the directory name of input fasta files; -og stop after get ortholog groups. 
+
+	mkdir /workdir/tmp
+
+	orthofinder.py -S diamond -I 5 -t 4 -a 4 -f fasta -p /workdir/tmp -og
+
+# Now that I have groups of orthologous genes, I can proceed to hypothesis testing. 
+# Aligning and filtering of orthogroups from Ben Rubin's workflow?
 
