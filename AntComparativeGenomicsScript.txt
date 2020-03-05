@@ -66,6 +66,7 @@
 			orthofinder.py -S diamond -I 5 -t 4 -a 4 -f primary_transcripts -p /workdir/tmp -og
 
 	# Run Ben Rubin's pipeline:
+		# All of the scripts will need to be updated to python3 using 2to3.
 	# Specify the same output directory for all of these steps (-b should take the same value)
 		# First, write orthogroups:
 			# Create a params file that points to the transcript file for each species (for example, `ACEP	/Users/meganbarkdull/R/Genomics/226Test/acep_genome.OGS.1.2.maker.transcripts.fasta`).
