@@ -1,5 +1,0 @@
-PBAR_Pbar_Ndufs7_like-1	78	120	78	120	3.02	C
-PBAR_Pbar_Ndufs7_like-1	158	206	158	206	3.17	C
-PBAR_Pbar_Ndufs7_like-1	263	334	263	334	3.55	C
-PBAR_Pbar_Ndufs7_like-1	376	410	376	410	3.02	C
-END_OF_MASKS

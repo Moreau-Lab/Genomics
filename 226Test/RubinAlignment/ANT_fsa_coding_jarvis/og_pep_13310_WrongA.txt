@@ -1,2 +1,0 @@
-PBAR_pbar_pteropsin-like-RB	234	276	234	276	3.22	C
-END_OF_MASKS

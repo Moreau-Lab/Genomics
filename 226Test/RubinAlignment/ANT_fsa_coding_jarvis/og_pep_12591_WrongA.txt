@@ -1,3 +1,0 @@
-PBAR_pbar_par-6-1	1	122	1	122	3.05	C
-PBAR_pbar_par-6-1	433	501	433	501	3.04	C
-END_OF_MASKS

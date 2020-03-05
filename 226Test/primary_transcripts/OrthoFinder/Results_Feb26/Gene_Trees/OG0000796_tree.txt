@@ -1,1 +1,0 @@
-(acep_genome_OGS_1_2_maker_proteins_ACEP_ACEP_00015357-RA:0.455811,(((pbar_genome_OGS_1_2_maker_proteins_PBAR_PB22658-RA:1.04728,pbar_genome_OGS_1_2_maker_proteins_PBAR_PB17188-RA:0.889543):0.0750649,pbar_genome_OGS_1_2_maker_proteins_PBAR_PB18988-RA:0.855234):0.172466,pbar_genome_OGS_1_2_maker_proteins_PBAR_PB24638-RA:0.729989):0.455811);

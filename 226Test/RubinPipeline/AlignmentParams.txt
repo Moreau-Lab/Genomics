@@ -1,3 +1,0 @@
-ACEP	/Users/meganbarkdull/R/Genomics/226Test/GCA_000143395.2_Acep_genomic.fna
-LHUM	/Users/meganbarkdull/R/Genomics/226Test/GCA_000217595.1_Lhum_genomic.fna
-PBAR	/Users/meganbarkdull/R/Genomics/226Test/GCA_000187915.1_Pbar_genomic.fna

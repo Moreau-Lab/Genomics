@@ -1,5 +1,0 @@
-PBAR_pbar_sra-1	1	18	1	18	3.64	C
-PBAR_pbar_sra-1	56	117	56	117	3.27	C
-PBAR_pbar_sra-1	154	231	154	231	3.5	C
-PBAR_pbar_sra-1	301	393	301	393	3.5	C
-END_OF_MASKS

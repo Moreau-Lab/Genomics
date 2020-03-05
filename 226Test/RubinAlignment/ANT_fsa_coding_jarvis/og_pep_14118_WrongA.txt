@@ -1,4 +1,0 @@
-PBAR_pbar_tungus-1	12	51	12	51	3.68	C
-PBAR_pbar_tungus-1	70	121	70	121	3.32	C
-PBAR_pbar_tungus-1	176	212	176	212	3.64	C
-END_OF_MASKS

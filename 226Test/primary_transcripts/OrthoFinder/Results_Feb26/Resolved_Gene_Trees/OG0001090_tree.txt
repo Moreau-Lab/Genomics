@@ -1,1 +1,0 @@
-((acep_genome_OGS_1_2_maker_proteins_ACEP_ACEP_00010525-RA:0.23999,pbar_genome_OGS_1_2_maker_proteins_PBAR_maker-pbar_scf7180000350332-snap-gene-1.12-mRNA-1:0.0523093)n1:0.0405129,(lhum_genome_OGS_1_2_maker_proteins_LHUM_LH22519-RA:0.0922727,lhum_genome_OGS_1_2_maker_proteins_LHUM_LH10164-RA:0.767153)n2:0.0405129)n0;

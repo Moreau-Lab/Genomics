@@ -1,3 +1,0 @@
-PBAR_pbar_galectin1-1	81	114	81	114	3.03	C
-PBAR_pbar_galectin1-1	745	781	745	781	3.16	C
-END_OF_MASKS

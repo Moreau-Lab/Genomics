@@ -1,2 +1,0 @@
-PBAR_Pbar_Cox6a1_like_A-1	142	167	142	167	3.09	C
-END_OF_MASKS

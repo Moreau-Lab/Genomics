@@ -1,1 +1,0 @@
-(lhum_genome_OGS_1_2_maker_proteins_LHUM_LH12025-RA:0.0881798,(acep_genome_OGS_1_2_maker_proteins_ACEP_ACEP_00009804-RA:0.164964,(pbar_genome_OGS_1_2_maker_proteins_PBAR_CG_02547645:5e-07,pbar_genome_OGS_1_2_maker_proteins_PBAR_maker-pbar_scf7180000350228-augustus-gene-1.3-mRNA-1:5e-07):0.101393):0.0881798);

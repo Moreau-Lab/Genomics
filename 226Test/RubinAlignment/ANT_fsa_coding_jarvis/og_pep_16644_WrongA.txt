@@ -1,3 +1,0 @@
-PBAR_Pbar_Uqcrb_like_A-1	95	110	95	110	3.82	C
-PBAR_Pbar_Uqcrb_like_A-1	319	356	319	356	3.07	C
-END_OF_MASKS

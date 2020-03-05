@@ -1,3 +1,0 @@
-PBAR_genemark_masked-pbar_scf7180000350332-abinit-gene-0.83-mRNA-1	748	794	748	794	3.42	C
-PBAR_genemark_masked-pbar_scf7180000350332-abinit-gene-0.83-mRNA-1	816	895	816	895	3.54	C
-END_OF_MASKS

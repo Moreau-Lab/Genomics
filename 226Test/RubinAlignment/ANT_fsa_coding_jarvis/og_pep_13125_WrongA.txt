@@ -1,2 +1,0 @@
-PBAR_Pbar-h-like-1	285	323	285	323	3.31	C
-END_OF_MASKS

@@ -1,3 +1,0 @@
-LHUM_lhum_loqs-1	729	750	729	750	3.38	C
-LHUM_lhum_loqs-1	847	861	847	861	4.43	C
-END_OF_MASKS

@@ -1,2 +1,0 @@
-PBAR_pbar_Fas3-like-RA	126	162	126	162	3.22	C
-END_OF_MASKS

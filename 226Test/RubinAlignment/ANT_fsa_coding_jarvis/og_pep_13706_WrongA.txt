@@ -1,2 +1,0 @@
-PBAR_Pbar_Ndufb8_like-1	319	330	319	330	3.44	C
-END_OF_MASKS

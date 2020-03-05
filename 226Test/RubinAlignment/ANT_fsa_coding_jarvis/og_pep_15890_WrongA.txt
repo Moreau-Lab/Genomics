@@ -1,3 +1,0 @@
-LHUM_LH20419-RA	1	13	1	13	4.21	C
-PBAR_pbar_eclair-like-1	1	13	1	13	4.76	C
-END_OF_MASKS

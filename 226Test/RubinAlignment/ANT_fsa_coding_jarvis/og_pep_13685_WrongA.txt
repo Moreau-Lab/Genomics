@@ -1,4 +1,0 @@
-PBAR_Pbar_Trax-like-1	162	187	162	187	3.03	C
-PBAR_Pbar_Trax-like-1	300	362	300	362	3.37	C
-PBAR_Pbar_Trax-like-1	463	496	463	496	3.17	C
-END_OF_MASKS

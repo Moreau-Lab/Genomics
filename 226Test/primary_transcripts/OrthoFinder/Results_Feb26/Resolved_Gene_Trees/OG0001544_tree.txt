@@ -1,1 +1,0 @@
-(lhum_genome_OGS_1_2_maker_proteins_LHUM_LH11591-RA:0.440663,(acep_genome_OGS_1_2_maker_proteins_ACEP_ACEP_00000424-RA:0.132933,(pbar_genome_OGS_1_2_maker_proteins_PBAR_PB26585-RA:1.77659e-06,pbar_genome_OGS_1_2_maker_proteins_PBAR_PB16252-RA:0.677362)n2:0.0752625)n1:0.462607)n0;

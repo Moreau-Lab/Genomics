@@ -1,3 +1,0 @@
-PBAR_Pbar_Emb-like-1	1	13	1	13	3.68	C
-PBAR_Pbar_Emb-like-1	943	1001	943	1001	3.11	C
-END_OF_MASKS

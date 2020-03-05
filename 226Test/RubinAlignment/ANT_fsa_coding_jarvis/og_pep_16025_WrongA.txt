@@ -1,4 +1,0 @@
-ACEP_ACEP_00013921-RA	1	59	1	59	3.3	C
-PBAR_maker-pbar_scf7180000350332-augustus-gene-0.7-mRNA-1	1	69	1	69	3.43	C
-PBAR_maker-pbar_scf7180000350332-augustus-gene-0.7-mRNA-1	544	580	544	580	3.07	C
-END_OF_MASKS
