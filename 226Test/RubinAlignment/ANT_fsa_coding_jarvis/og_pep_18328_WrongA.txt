@@ -1,0 +1,2 @@
+PBAR_pbar_RpL24-like-1	59	137	59	137	3.04	C
+END_OF_MASKS

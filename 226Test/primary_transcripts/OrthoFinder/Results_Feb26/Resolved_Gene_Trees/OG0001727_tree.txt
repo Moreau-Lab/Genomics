@@ -1,0 +1,1 @@
+(lhum_genome_OGS_1_2_maker_proteins_LHUM_LH25479-RA:0.0555486,((lhum_genome_OGS_1_2_maker_proteins_LHUM_LH15748-RA:0.327601,lhum_genome_OGS_1_2_maker_proteins_LHUM_LH10423-RA:0.59549)n2:0.333928,lhum_genome_OGS_1_2_maker_proteins_LHUM_LH25405-RA:0.34472)n1:0.0555486)n0;

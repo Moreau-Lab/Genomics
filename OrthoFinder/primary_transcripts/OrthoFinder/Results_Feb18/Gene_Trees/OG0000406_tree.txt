@@ -1,0 +1,1 @@
+(((((pbar_annotation_PBAR_14755-RA:0.22353,pbar_annotation_PBAR_10180-RA:0.929755):0.149032,pbar_annotation_PBAR_19183-RA:0.959113):0.0322443,pbar_annotation_PBAR_10065-RA:0.563342):0.0598101,acep_annotation_ACEP_00003640-RA:1.01273):0.0386022,(acep_annotation_ACEP_00014346-RA:1.02353,pbar_annotation_PBAR_10473-RA:0.500715):0.0386022);

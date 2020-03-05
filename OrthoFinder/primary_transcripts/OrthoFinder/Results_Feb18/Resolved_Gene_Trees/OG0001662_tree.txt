@@ -1,0 +1,1 @@
+(lhum_annotation_LHUM_18667-RA:0.0328045,((pbar_annotation_CG_02547677:0,pbar_annotation_snap_masked-pbar_scf7180000350037-abinit-gene-0.48-mRNA-1:0)n2:0.049885,acep_annotation_ACEP_00011379-RA:0.112324)n1:0.0328045)n0;

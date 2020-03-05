@@ -1,0 +1,2 @@
+PBAR_pbar_Ras1-RB	10	37	10	37	3.31	C
+END_OF_MASKS

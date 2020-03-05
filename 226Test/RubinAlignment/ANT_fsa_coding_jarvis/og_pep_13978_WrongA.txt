@@ -1,0 +1,6 @@
+LHUM_LH12107-RA	1	24	1	24	3.27	C
+PBAR_pbar_ltd-like-1	1	28	1	28	3.13	C
+PBAR_pbar_ltd-like-1	305	333	305	333	3.49	C
+PBAR_pbar_ltd-like-1	359	427	359	427	3.54	C
+PBAR_pbar_ltd-like-1	460	492	460	492	3.35	C
+END_OF_MASKS

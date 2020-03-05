@@ -1,0 +1,2 @@
+PBAR_Pbar_Ndufv1_like-1	1	22	1	22	3.85	C
+END_OF_MASKS

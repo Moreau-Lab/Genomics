@@ -1,0 +1,1 @@
+(pbar_genome_OGS_1_2_maker_proteins_PBAR_PB20191-RA:0.273392,((pbar_genome_OGS_1_2_maker_proteins_PBAR_PB23512-RA:0.736341,pbar_genome_OGS_1_2_maker_proteins_PBAR_PB14003-RA:0.864228)n2:0.175861,(pbar_genome_OGS_1_2_maker_proteins_PBAR_PB27032-RA:0.571093,pbar_genome_OGS_1_2_maker_proteins_PBAR_PB14002-RA:1.33994)n3:0.145)n1:0.273392)n0;

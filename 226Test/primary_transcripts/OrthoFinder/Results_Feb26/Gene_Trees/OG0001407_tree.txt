@@ -1,0 +1,1 @@
+(lhum_genome_OGS_1_2_maker_proteins_LHUM_LH14525-RA:0.158529,((pbar_genome_OGS_1_2_maker_proteins_PBAR_augustus_masked-pbar_scf7180000349975-abinit-gene-2.58-mRNA-1:5e-07,pbar_genome_OGS_1_2_maker_proteins_PBAR_pbar_visgun-like-RA:5e-07):0.19892,acep_genome_OGS_1_2_maker_proteins_ACEP_ACEP_00002883-RA:0.220642):0.158529);

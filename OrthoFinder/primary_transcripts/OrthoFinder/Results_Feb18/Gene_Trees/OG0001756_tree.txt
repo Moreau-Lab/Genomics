@@ -1,0 +1,1 @@
+(pbar_annotation_PBAR_22038-RA:0.333183,(pbar_annotation_PBAR_12035-RA:0.774374,(pbar_annotation_PBAR_11722-RA:0.811769,pbar_annotation_PBAR_15159-RA:0.942653):0.153887):0.333183);

@@ -1,0 +1,1 @@
+(lhum_genome.OGS.1.2.maker.proteins:0.5,(pbar_genome.OGS.1.2.maker.proteins:1,acep_genome.OGS.1.2.maker.proteins:1)N1:0.5)N0;

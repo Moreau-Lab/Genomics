@@ -1,0 +1,1 @@
+(acep_genome_OGS_1_2_maker_proteins_ACEP_ACEP_00017452-RA:0.0866864,(((acep_genome_OGS_1_2_maker_proteins_ACEP_ACEP_00005342-RA:0.424478,acep_genome_OGS_1_2_maker_proteins_ACEP_ACEP_00005341-RA:0.135159):0.232388,acep_genome_OGS_1_2_maker_proteins_ACEP_ACEP_00003695-RA:0.491398):0.118909,acep_genome_OGS_1_2_maker_proteins_ACEP_ACEP_00016052-RA:0.890527):0.0866864);

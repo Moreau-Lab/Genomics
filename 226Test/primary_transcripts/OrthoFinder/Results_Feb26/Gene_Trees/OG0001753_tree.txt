@@ -1,0 +1,1 @@
+(pbar_genome_OGS_1_2_maker_proteins_PBAR_PB23946-RA:0.346462,((pbar_genome_OGS_1_2_maker_proteins_PBAR_PB15361-RA:0.166372,pbar_genome_OGS_1_2_maker_proteins_PBAR_PB10103-RA:0.295985):0.127021,pbar_genome_OGS_1_2_maker_proteins_PBAR_PB16595-RA:0.387598):0.346462);

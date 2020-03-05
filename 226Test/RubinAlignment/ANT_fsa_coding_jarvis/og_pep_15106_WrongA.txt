@@ -1,0 +1,2 @@
+PBAR_augustus_masked-pbar_scf7180000350332-abinit-gene-2.41-mRNA-1	1	25	1	25	3.56	C
+END_OF_MASKS

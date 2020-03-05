@@ -1,0 +1,3 @@
+ACEP	/Users/meganbarkdull/R/Genomics/226Test/acep_genome.OGS.1.2.maker.transcripts.fasta
+LHUM	/Users/meganbarkdull/R/Genomics/226Test/lhum_genome.OGS.1.2.maker.transcripts.fasta
+PBAR	/Users/meganbarkdull/R/Genomics/226Test/pbar_genome.OGS.1.2.maker.transcripts.fasta

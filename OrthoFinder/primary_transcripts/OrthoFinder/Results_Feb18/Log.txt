@@ -1,0 +1,13 @@
+2020-02-18 13:08:06 : Started OrthoFinder version 2.3.11
+Command Line: /Users/meganbarkdull/miniconda3/bin/orthofinder -f primary_transcripts/
+
+WorkingDirectory_Base: /Users/meganbarkdull/R/Genomics/OrthoFinder/primary_transcripts/OrthoFinder/Results_Feb18/WorkingDirectory/
+
+Species used: 
+0: acep_annotation.fasta
+1: lhum_annotation.fasta
+2: pbar_annotation.fasta
+
+FN_Orthogroups: /Users/meganbarkdull/R/Genomics/OrthoFinder/primary_transcripts/OrthoFinder/Results_Feb18/WorkingDirectory/clusters_OrthoFinder_I1.5.txt_id_pairs.txt
+WorkingDirectory_Trees: /Users/meganbarkdull/R/Genomics/OrthoFinder/primary_transcripts/OrthoFinder/Results_Feb18/WorkingDirectory/
+2020-02-18 13:14:34 : OrthoFinder run completed

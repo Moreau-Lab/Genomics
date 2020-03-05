@@ -1,0 +1,1 @@
+(lhum_annotation_LHUM_15723-RA:2.10686e-06,((acep_annotation_ACEP_00003220-RA:0.181152,pbar_annotation_PBAR_21240-RA:0.504229):0.999961,(acep_annotation_ACEP_00003218-RA:0.454079,pbar_annotation_PBAR_12978-RA:2.10686e-06):0.857573):2.10686e-06);

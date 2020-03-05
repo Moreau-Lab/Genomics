@@ -1,0 +1,62 @@
+      3    197
+
+ACEP                            MTXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXGLFRNYMA IKDRNHLETY EEISSEQNDM IDIFANLTFR FTCKDMPSGF YADIDYNCRI FHVCENFGDG FPVICANDTV FDQKQRICTD EENIDCHHAH EWYYLNELTY SAEIEPRTIT EEIPEEEESK MVQEDVVPSI WPFVIDX
+LHUM                            MKEEQGRIEK NECASPRVFR TFCMWFLDEA AVKTEPWLGG KEKGSLRSIK MATQSXXTLG HFDRNRLETY EEISSEQNNX IDVFENLTFR FTCEGMPSGF YADVDYDCRI FHVCDNSGDG FPIICANDSV FDQKRRICTN EDDIDCQYAH EWYYLNELTY SAEVESKMIT EEVTEKNESK IIQEDEVPSV LPFEIDX
+PBAR                            MTXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXXXXXXXXX XXNQYXXTLG YVDRNRLETY EEVSSEQSDX IDIFANLTFR FTCENMPPGF YADVDYNCRV FHVCEESGNE FPVICANDTV FDQKQRICTD EENVDCQHAH EWYYLNELTY SAEIESRTIT EEIVEEDESK VIQEDVVPSV LPLMINX
+
+
+
+Printing out site pattern counts
+
+
+         3         84  P
+
+ACEP                            AAACDDDDEE EEFFFFGGGH HHHIIIIIKK KLLMMMMNNN NNPPPQQRRR SSTTTTVVVV VWWXXXXXXX XXXXXXXXXX XXYY
+LHUM                            AEGCDDGNDE KNFFSSGGTH QRYHIIVVEF KLQILMXDNN NXPSTQRKRX SSKMSTEEII VLWACDEFGI KLMNPQRSTV WXTY
+PBAR                            AAGCDNNDEE EDFLSYEGNH QRHYIVIVEV KLQVLMXNEN SXPSVQQRRX PSTTTTMVIV VLWXXXXXXX XXXXXXXXXX XXTY
+
+
+
+    4    1    1    6    8    2    1    2    2   14    1    1    7    1    1
+    1    1    2    1    2    1    1    1    1    5    3    3    2    1    1
+    2    4    1    1    1    2    1    2    1    4    1    1    4    1    1
+    3    1    1    4    1    1    5    1    1    1    6    1    1    1    1
+    3    1    1    4    2    1    7    3    4    2    5    3    2    1    2
+    1    4    3    2    2    2    1    1    6
+
+AAML (in paml version 4.9, March 2015)  ../og_cds_17330.afa
+Model: Empirical_F for branches,  (/Users/meganbarkdull/miniconda3/pkgs/paml-4.9-h01d97ff_5/dat/jones.dat) ns =   3  ls = 197
+
+
+Frequencies..
+                                    A      R      N      D      C      Q      E      G      H      I      L      K      M      F      P      S      T      W      Y      V
+ACEP                           0.04110 0.04110 0.06164 0.08904 0.04110 0.02740 0.12329 0.02740 0.03425 0.09589 0.03425 0.02740 0.03425 0.06849 0.04110 0.04110 0.06164 0.01370 0.04795 0.04795
+LHUM                           0.04145 0.05181 0.05181 0.07772 0.04145 0.03109 0.12953 0.04663 0.01554 0.06736 0.04663 0.05181 0.02591 0.06218 0.03109 0.06736 0.05699 0.01554 0.03627 0.05181
+PBAR                           0.03497 0.04196 0.06993 0.07692 0.04196 0.04196 0.13986 0.02098 0.02098 0.06294 0.04895 0.01399 0.02098 0.04895 0.03497 0.05594 0.06993 0.00699 0.05594 0.09091
+
+Homogeneity statistic: X2 = 0.10583 G = 0.10471 
+
+Average                        0.03942 0.04564 0.06017 0.08091 0.04149 0.03320 0.13071 0.03320 0.02282 0.07469 0.04357 0.03320 0.02697 0.06017 0.03527 0.05602 0.06224 0.01245 0.04564 0.06224
+(Ambiguity characters are used to calculate freqs.)
+
+
+# constant sites:     93 (47.21%)
+AA distances (raw proportions of different sites)
+
+ACEP           
+LHUM             0.4772
+PBAR             0.1777  0.4467
+
+
+TREE #  1:  (2, 3, 1);   MP score: -1
+lnL(ntime:  3  np:  3):   -851.330222      +0.000000
+   4..2     4..3     4..1  
+ 0.211176 0.100876 0.164889
+
+tree length =   0.47694
+
+(2: 0.211176, 3: 0.100876, 1: 0.164889);
+
+(LHUM: 0.211176, PBAR: 0.100876, ACEP: 0.164889);
+
+Time used:  0:00

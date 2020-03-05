@@ -1,0 +1,1 @@
+(lhum_annotation_LHUM_23279-RA:0.276816,(lhum_annotation_LHUM_25213-RA:0.0967902,(lhum_annotation_LHUM_11942-RA:0.115596,lhum_annotation_LHUM_10466-RA:0.0997315)n2:0.287674)n1:0.276816)n0;
