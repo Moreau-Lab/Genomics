@@ -1,1 +1,0 @@
-(lhum_annotation_LHUM_12028-RA:0.0647826,((pbar_annotation_maker-pbar_scf7180000350228-snap-gene-1.7-mRNA-1:0,pbar_annotation_CG_02547589:0):0.0750907,((pbar_annotation_maker-pbar_scf7180000350228-snap-gene-1.6-mRNA-1:0,pbar_annotation_CG_02547581:0):1.03011,acep_annotation_ACEP_00009801-RA:0.172518):0.166193):0.0647826);

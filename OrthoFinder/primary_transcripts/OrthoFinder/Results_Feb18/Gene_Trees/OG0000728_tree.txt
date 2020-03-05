@@ -1,1 +1,0 @@
-(lhum_annotation_LHUM_21744-RA:0.0107663,(pbar_annotation_augustus-pbar_scf7180000350332-abinit-gene-3.198-mRNA-1:0.193684,(acep_annotation_ACEP_00010506-RA:0.173895,(pbar_annotation_augustus_masked-pbar_scf7180000350332-abinit-gene-3.98-mRNA-1:0.138264,acep_annotation_ACEP_00010499-RA:0.0343612):0.236754):0.253833):0.0107663);

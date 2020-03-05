@@ -1,3 +1,0 @@
-0: acep_annotation.fasta
-1: lhum_annotation.fasta
-2: pbar_annotation.fasta

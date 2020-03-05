@@ -1,1 +1,0 @@
-(((lhum_annotation_LHUM_um_Sdha_like_B-RA:0.0467948,acep_annotation_ACEP_04572954-RA:0.0716443):0.0271939,(pbar_annotation_PBAR_16233-RA:0.0700734,pbar_annotation_PBAR_ar_Sdha_like_B_middle-1:0.326891):0.214736):0.177786,(lhum_annotation_LHUM_um_Sdha_A-RA:0.0238419,(acep_annotation_ACEP_00008835-RA:0.0242547,pbar_annotation_PBAR_ar_Sdha_like_A-1:0.0152303):0.0110001):0.177786);

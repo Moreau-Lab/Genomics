@@ -1,1 +1,0 @@
-(lhum_annotation_LHUM_14525-RA:0.158529,((pbar_annotation_augustus_masked-pbar_scf7180000349975-abinit-gene-2.58-mRNA-1:5e-07,pbar_annotation_PBAR_ar_visgun-like-RA:5e-07)n2:0.19892,acep_annotation_ACEP_00002883-RA:0.220642)n1:0.158529)n0;

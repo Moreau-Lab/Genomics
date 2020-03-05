@@ -1,1 +1,0 @@
-((acep_annotation_ACEP_00003839-RA:0.0467193,(lhum_annotation_LHUM_21834-RA:0.0127063,pbar_annotation_PBAR_ar_baboon-1:0.0081637)n2:0.0655814)n1:0.0963586,(acep_annotation_ACEP_00015472-RA:1.39499,((acep_annotation_ACEP_00004391-RA:0.0444568,lhum_annotation_LHUM_22869-RA:0.193413)n5:0.0841547,pbar_annotation_PBAR_ar_thickveins-1:0.0454399)n4:0.373455)n3:0.0963586)n0;

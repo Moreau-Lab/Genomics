@@ -1,1 +1,0 @@
-(lhum_annotation_LHUM_10149-RA:0.599953,(((lhum_annotation_LHUM_10348-RA:0.831198,(lhum_annotation_LHUM_11586-RA:0.872277,lhum_annotation_LHUM_10074-RA:1.1785):0.218875):0.0296266,lhum_annotation_LHUM_11738-RA:1.46996):0.00569473,(lhum_annotation_LHUM_15797-RA:1.24583,(lhum_annotation_LHUM_11744-RA:0.396345,lhum_annotation_LHUM_10516-RA:0.508092):0.649595):0.117356):0.599953);

@@ -1,1 +1,0 @@
-((pbar_annotation_PBAR_ar_LW_opsin_2-1:0.259175,(lhum_annotation_LHUM_12072-RA:0.0812337,acep_annotation_ACEP_00012010-RA:0.0871583):0.0190936):0.143915,(pbar_annotation_PBAR_ar_LW_opsin1-RA:0.132129,(acep_annotation_ACEP_00012011-RA:0.142696,lhum_annotation_LHUM_12077-RA:0.0621024):0.0155494):0.143915);

@@ -1,1 +1,0 @@
-(pbar_annotation_maker-pbar_scf7180000350332-augustus-gene-3.29-mRNA-1:0.361592,((lhum_annotation_LHUM_13282-RA:0.129487,acep_annotation_ACEP_00001601-RA:0.0622735)n2:0.117631,(lhum_annotation_LHUM_13283-RA:0.110915,acep_annotation_ACEP_00001597-RA:0.046785)n3:0.0355622)n1:0.00395135)n0;

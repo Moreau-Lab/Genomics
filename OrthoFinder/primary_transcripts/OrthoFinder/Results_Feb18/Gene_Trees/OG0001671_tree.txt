@@ -1,1 +1,0 @@
-((lhum_annotation_maker-scf7180001004940-snap-gene-18.51-mRNA-1-duplicate:0.0247143,lhum_annotation_maker-scf7180001004940-snap-gene-18.51-mRNA-1:0.00680375):0.0414839,(acep_annotation_ACEP_00015076-RA:0.069171,pbar_annotation_PBAR_12004-RA:0.114354):0.0414839);

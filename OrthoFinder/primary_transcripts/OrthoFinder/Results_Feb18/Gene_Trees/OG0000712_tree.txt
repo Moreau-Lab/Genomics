@@ -1,1 +1,0 @@
-(acep_annotation_ACEP_00017850-RA:4.3882e-06,(pbar_annotation_PBAR_12689-RA:0.673172,((pbar_annotation_PBAR_26373-RA:0.839097,pbar_annotation_PBAR_26371-RA:1.4617):0.519058,pbar_annotation_PBAR_12688-RA:0.73472):0.163141):4.3882e-06);

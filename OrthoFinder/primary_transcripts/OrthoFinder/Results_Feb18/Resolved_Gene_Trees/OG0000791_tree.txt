@@ -1,1 +1,0 @@
-(acep_annotation_ACEP_00011732-RA:0.191906,(acep_annotation_ACEP_00011730-RA:0.604683,(acep_annotation_ACEP_00003479-RA:0.642787,(acep_annotation_ACEP_00013397-RA:0.794507,acep_annotation_ACEP_00011731-RA:0.365123)n3:0.236101)n2:0.030164)n1:0.191906)n0;
