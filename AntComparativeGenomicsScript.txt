@@ -12,46 +12,50 @@
 	mkdir XXXXX
 	cd XXXXX
 
-# On the remote machine, download the ant genomes
-	# I'm considering instead using wget -i inputfile, so that I can have a text file "inputfile" that lists all the urls for the ant genomes and I'll only have to run wget once.
-	# I also need to talk to Corrie to find out which specific files I need to download.
-	wget https://antgenomes.org/downloads/genome/Pogonomyrmex_barbatus/GCA_000187915.1_Pbar_genomic.fna.gz
-	wget https://antgenomes.org/downloads/genome/Linepithema_humile/GCA_000217595.1_Lhum_genomic.fna.gz
-	# Unzip the genome files
-	gunzip *.fna.gz
+# Download the data files that you will need:
+	# You should download these in such a way that they are given sensible names from the start; this will particularly cause an error when making input for RERconverge, because the species tree will have node names that do not correspond to the four-character species codes used elsewhere.
 
-# Annotate the genomes with Maker
-	# Helpful info: http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_WGS_Assembly_and_Annotation_Winter_School_2018 and https://biohpc.cornell.edu/lab/userguide.aspx?a=software&i=65#c
-	# I should probably do this- "MAKER's annotations can be easily updated with new evidence by passing existing annotation sets back though MAKER."
-	# I think this will also require downloading references for annotation (RNA and protein sequences from related organisms(which?))
+	# Orthofinder requires only annotation files (files of amino acid sequences).
+	# Ben Rubin's workflow requires the output of OrthoFinder, AND coding sequences for all of the genes (files of nucleotide sequences). These are transcript files, NOT genome files. Gene names in this file MUST correspond to gene names in the proteins file.
+		# Download transcripts:
+		wget https://antgenomes.org/downloads/transcripts/Atta_cephalotes/acep_genome.OGS.1.2.maker.transcripts.fasta.gz
+		wget https://antgenomes.org/downloads/transcripts/Pogonomyrmex_barbatus/pbar_genome.OGS.1.2.maker.transcripts.fasta.gz
+		wget https://antgenomes.org/downloads/transcripts/Linepithema_humile/lhum_genome.OGS.1.2.maker.transcripts.fasta.gz
+		# Download protein sequence files:
+		wget https://antgenomes.org/downloads/proteins/Pogonomyrmex_barbatus/pbar_genome.OGS.1.2.maker.proteins.fasta.gz
+		wget https://antgenomes.org/downloads/proteins/Linepithema_humile/lhum_genome.OGS.1.2.maker.proteins.fasta.gz
+		wget https://antgenomes.org/downloads/proteins/Atta_cephalotes/acep_genome.OGS.1.2.maker.proteins.fasta.gz
+		# Unzip all of the downloaded files:
+		gunzip *.fasta.gz
 
-# Infer orthogroups with Orthofinder
-	# First, create a directory that will store all of your protein sequences. The results directory will end up being a subdirectory within this directory. Create a directory under /workdir, and put all protein fasta file in the directory, with one file per individual. The file name should be individualName.faa.
-	cd /workdir
-	mkdir AntComparativeGenomics
-	cd AntComparativeGenomics
-	mkdir OrthoFinder
-	cd OrthoFinder
-	# Download annotation files from online.
-	wget https://antgenomes.org/downloads/proteins/Pogonomyrmex_barbatus/pbar_genome.OGS.1.2.maker.proteins.fasta.gz
-	wget https://antgenomes.org/downloads/proteins/Linepithema_humile/lhum_genome.OGS.1.2.maker.proteins.fasta.gz
-	wget https://antgenomes.org/downloads/proteins/Atta_cephalotes/acep_genome.OGS.1.2.maker.proteins.fasta.gz
-	# Unzip the annotation files
-	gunzip *.fasta.gz
-	# Check how the genes are named in the annotation files. We want them to begin with a four-character species code (for example, for L. humile, we want LHUM_, not LH)
-			# This will append the four-character code to the beginning of each gene name by replacing > with >CODE_, but still has to be done one species at a time. I'll try to come up with a better solution.
-			# -i means save in place, overwriting the orginal file; s means substitute; g means global, so search and replace all. The two single quotes are probably not necessary on the BioHPC Linux machines.
-			sed -i ''  's/>/>PBAR_/g' pbargenome.fasta
-	# If on the BioHPC, copy Orthofinder to your home directory:
-	cp -r /programs/OrthoFinder-2.3.8_source/orthofinder $HOME/
-	# Clean up the annotation files with primary_transcript.py. This will filter out only the longest transcript per gene, and will clean up names in a reasonable way, speeding up the OrthoFinder run.
-			# This is the path to the clean-up script on the BioHPC cluster.
-			for f in *fasta ; do python /programs/OrthoFinder-2.3.8_source/orthofinder/tools/primary_transcript.py $f ; done
-			# This is the path for use on my laptop:
-			for f in *fasta ; do python ~/orthofinder_tutorial/OrthoFinder/tools/primary_transcript.py $f ; done
-	# If on my laptop, run OrthoFinder now with:
-	orthofinder -f primary_transcripts/
-	# If on the BioHPC:
+# Find orthogroups with OrthoFinder:
+	# Clean up the annotation files:
+	for f in *proteins.fasta ; do python ~/orthofinder_tutorial/OrthoFinder/tools/primary_transcript.py $f ; done
+
+	# Make sure that all of the gene names start with the correct four-character species code:
+		# Do this for the protein sequence files:
+		cd ./primary_transcripts
+		# This will append the four-character code to the beginning of each gene name by replacing > with >CODE_, but still has to be done one species at a time. I'll try to come up with a better solution.
+		# -i means save in place, overwriting the original file; s means substitute; g means global, so search and replace all. The two single quotes are probably not necessary on the BioHPC Linux machines.
+		# There is definitely a better way to do this but I'll figure it out later.
+		sed -i ''  's/>/>PBAR_/g' pbar_genome.OGS.1.2.maker.proteins.fasta
+		sed -i ''  's/>/>LHUM_/g' lhum_genome.OGS.1.2.maker.proteins.fasta
+		sed -i ''  's/>/>ACEP_/g' acep_genome.OGS.1.2.maker.proteins.fasta
+		# And do it for the transcript files:
+		cd ..
+		sed -i ''  's/>/>PBAR_/g' pbar_genome.OGS.1.2.maker.transcripts.fasta
+			# The PBAR transcript files also have a problem where the transcript file calls some genes "*CG:*" whereas the orthogroups.txt file calls them "*CG_*"; these have to be reconciled. For now I am doing it by hand.
+		sed -i ''  's/>/>LHUM_/g' lhum_genome.OGS.1.2.maker.transcripts.fasta
+			# LHUM also has the above problem; in addition, some of the LHUM genes are named "*LHUM:*" in the transcripts file and are named "*LHUM_*" in the orthogroups.txt file. This needs to be reconciled.
+			# There's a gene called "LHUM_maker-scf7180001004940-snap-gene-18.51-mRNA-1-duplicate" in the orthogroups.txt file but called "LHUM_maker-scf7180001004940-snap-gene-18.51-mRNA-1another" in the transcript file. This has to be fixed.
+		sed -i ''  's/>/>ACEP_/g' acep_genome.OGS.1.2.maker.transcripts.fasta
+			# Some ACEP gene names have () in the transcript file but _ in the orthogroups.txt file. This has to be fixed.
+		#Overall, there are a bunch of mismatches between the gene names. Most of them have to do with something that is an underscore in the orthogroups.txt file being a colon or parentheses in the individual transcripts files; there is also an issue where things will be called "*duplicate*" in the orthogroups.txt file but "*another*" in the individual transcripts file. It took way too long to fix all of these by hand for just three species; I will need to figure out a real solution for the full run. I wonder if it has to do with the OrthoFinder cleanup script changing things to be underscores.
+
+	# Run OrthoFinder:
+		# If on my laptop, run OrthoFinder now with:
+		orthofinder -f primary_transcripts/
+		# If on the BioHPC:
 			# Modify the config.json file as needed. e.g. I modified the diamond setting as below, using 5 CPU core per job, and changed evalue cutoff. for details check the diamond manual
 			diamond blastp -d DATABASE -q INPUT -o OUTPUT --more-sensitive -p 5 --index-chunks 1 --block-size 2 --tmpdir /workdir/qisun/tmp --quiet -e 1e-10 --compress 1
 			## set environment
@@ -60,7 +64,112 @@
 			mkdir /workdir/tmp
 			## command, using diamond for alignment, use "-I 5" for tight cluster, run 4 jobs at a time, use /workdir/tmp as the tmp directory. "-f fasta": the directory name of input fasta files; -og stop after get ortholog groups.
 			orthofinder.py -S diamond -I 5 -t 4 -a 4 -f primary_transcripts -p /workdir/tmp -og
-			orthofinder.py -S blast -I 5 -t 4 -a 4 -f primary_transcripts -p /workdir/tmp -og
+
+	# Run Ben Rubin's pipeline:
+	# Specify the same output directory for all of these steps (-b should take the same value)
+		# First, write orthogroups:
+			# Create a params file that points to the transcript file for each species (for example, `ACEP	/Users/meganbarkdull/R/Genomics/226Test/acep_genome.OGS.1.2.maker.transcripts.fasta`).
+			python selection_pipeline.py -a write_orthos -b ./RubinAlignment -o ANT -r /Users/meganbarkdull/R/Genomics/226Test/primary_transcripts/OrthoFinder/Results_Feb26/Orthogroups/Orthogroups.txt -t 3 -d AlignmentParams.txt
+
+		# Now align orthogroups:
+			# For whatever reason, Ben Rubin's utils.py script has hardcoded the path to FSA as `/Genomics/kocherlab/berubin/local/src/fsa-1.15.9/bin/fsa`. This obviously needs to be changed to a local path.
+				# Install FSA:
+				conda install -c bioconda fsa
+				# Now it is in `/Users/meganbarkdull/miniconda3/bin/fsa`, so I can change to the appropriate path. However, long term, I'll need to figure out how to not have this hardcoded.
+			# Same issue with gblocks; need to fix the hardcoded path `/Genomics/kocherlab/berubin/local/src/Gblocks_0.91b/Gblocks`
+				# Install gblocks
+				conda install gblocks
+				# Now it is in `/Users/meganbarkdull/miniconda3/bin/gblocks`
+			# Also an issue for trimal
+				# Install trimal:
+				conda install trimal
+				# Now it is in `/Users/meganbarkdull/miniconda3/bin/trimal`
+			# Also need to point to a particular PAML data file:
+				# Change from `/Genomics/kocherlab/berubin/local/src/paml4.9e/dat/jones.dat` to `/Users⁩/meganbarkdull⁩/bin⁩ /paml4.8⁩/dat⁩/jones.dat`
+			# Run the aligning command:
+			python selection_pipeline.py -a align_coding -p 16 -b ./RubinAlignment -o ANT -r /Users/meganbarkdull/R/Genomics/226Test/primary_transcripts/OrthoFinder/Results_Feb26/Orthogroups/Orthogroups.txt -t 3 -d AlignmentParams.txt
+				# This worked (took from about 2:30 to 1:04 am), except that some trimal files are missing and so a matrix for RAxML wasn't created.
+
+		# Run alignment filtering- this is the part that creates the needed index file!:
+			# You have to change the --nogap_min_count parameter if running with a small number of species- if it is set to 8 but you only have 3 species, all columns in the alignment will be removed! And then the filtered.index file will be empty and you can't create inputs for rer_converge
+			# Also might be worth setting the other filter parameters to 0 just for this test run, since the number of species is low. So, `--nogap_min_prop 0` and `--nogap_min_species 0`
+			python selection_pipeline.py -a alignment_filter -b ./RubinAlignment -o ANT -r /Users/meganbarkdull/R/Genomics/OrthoFinder/primary_transcripts/OrthoFinder/Results_Feb18/Orthogroups/Orthogroups.txt -p 16 -t 3  -d AlignmentParams.txt --nogap_min_count 0 --nogap_min_prop 0 --nogap_min_species 0
+
+		# Create inputs for RERconverge:
+			# CodeML is hardcoded in this script;
+			 	#	Two things to change it to:
+					# "/Users/meganbarkdull/miniconda3/lib/python3.7/site-packages/Bio/Phylo/PAML/codeml.py"
+						# Runs and I get: PermissionError: [Errno 13] Permission denied: '/Users/meganbarkdull/miniconda3/lib/python3.7/site-packages/Bio/Phylo/PAML/codeml.py'
+					# "/Users/meganbarkdull/miniconda3/bin/codeml"
+						# Runs and I get "Bio.Phylo.PAML._paml.PamlError: /Users/meganbarkdull/miniconda3/bin/codeml has failed (return code 255). Run with verbose = True to view error message"
+						# The seq files (.afa) all start with numbers and that's messing it up.
+						# So what is creating the .afa files?
+				 python selection_pipeline.py -a rer_converge -p 16 -b ./RubinAlignment -o ANT -t 3 --outputfile TestRERInputs --taxa_inclusion ./TaxaInclusion.txt -e ./primary_transcripts/OrthoFinder/Results_Feb26/Species_Tree/SpeciesTree_rooted.txt
+
+
+
+
+
+
+
+# If you want to re-annotate the genomes:
+	# On the remote machine, download the ant genomes. I don't think you need to do this UNLESS re-annotating.
+		# I'm considering instead using wget -i inputfile, so that I can have a text file "inputfile" that lists all the urls for the ant genomes and I'll only have to run wget once.
+		# I also need to talk to Corrie to find out which specific files I need to download.
+		wget https://antgenomes.org/downloads/genome/Pogonomyrmex_barbatus/GCA_000187915.1_Pbar_genomic.fna.gz
+		wget https://antgenomes.org/downloads/genome/Linepithema_humile/GCA_000217595.1_Lhum_genomic.fna.gz
+		# Unzip the genome files
+		gunzip *.fna.gz
+		# Change the files from .fna to .fasta
+		brew install rename
+		rename "s/fna/fasta/" *.fna
+
+	# Annotate the genomes with Maker
+		# Helpful info: http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_WGS_Assembly_and_Annotation_Winter_School_2018 and https://biohpc.cornell.edu/lab/userguide.aspx?a=software&i=65#c
+		# I should probably do this- "MAKER's annotations can be easily updated with new evidence by passing existing annotation sets back though MAKER."
+		# I think this will also require downloading references for annotation (RNA and protein sequences from related organisms(which?))
+
+# If you are using existing annotations:
+	# Infer orthogroups with Orthofinder
+		# OrthoFinder requires amino acid sequences as input. So first, create a directory that will store all of your protein sequences. The results directory will end up being a subdirectory within this directory. Create a directory under /workdir, and put all protein fasta file in the directory, with one file per individual. The file name should be individualName.faa.
+		cd /workdir
+		mkdir AntComparativeGenomics
+		cd AntComparativeGenomics
+		mkdir OrthoFinder
+		cd OrthoFinder
+		# Download annotation files from online.
+		wget https://antgenomes.org/downloads/proteins/Pogonomyrmex_barbatus/pbar_genome.OGS.1.2.maker.proteins.fasta.gz
+		wget https://antgenomes.org/downloads/proteins/Linepithema_humile/lhum_genome.OGS.1.2.maker.proteins.fasta.gz
+		wget https://antgenomes.org/downloads/proteins/Atta_cephalotes/acep_genome.OGS.1.2.maker.proteins.fasta.gz
+		# Unzip the annotation files
+		gunzip *.fasta.gz
+
+		# If on the BioHPC, copy Orthofinder to your home directory:
+		cp -r /programs/OrthoFinder-2.3.8_source/orthofinder $HOME/
+
+		# Clean up the annotation files with primary_transcript.py. This will filter out only the longest transcript per gene, and will clean up names in a reasonable way, speeding up the OrthoFinder run.
+			# I think this needs to be done BEFORE renaming all the genes! Or maybe not, switching the order didn't change the fact that it didn't find any genes. Now I wonder if it does want annotation files?
+			# This is the path to the clean-up script on the BioHPC cluster.
+			for f in *fasta ; do python /programs/OrthoFinder-2.3.8_source/orthofinder/tools/primary_transcript.py $f ; done
+			# This is the path for use on my laptop:
+			for f in *fasta ; do python ~/orthofinder_tutorial/OrthoFinder/tools/primary_transcript.py $f ; done
+
+		# Check how the genes are named in the annotation files. We want them to begin with a four-character species code (for example, for L. humile, we want LHUM_, not LH)
+				# This will append the four-character code to the beginning of each gene name by replacing > with >CODE_, but still has to be done one species at a time. I'll try to come up with a better solution.
+				# -i means save in place, overwriting the orginal file; s means substitute; g means global, so search and replace all. The two single quotes are probably not necessary on the BioHPC Linux machines.
+				sed -i ''  's/>/>PBAR_/g' pbargenome.fasta
+
+			# If on my laptop, run OrthoFinder now with:
+			orthofinder -f primary_transcripts/
+			# If on the BioHPC:
+				# Modify the config.json file as needed. e.g. I modified the diamond setting as below, using 5 CPU core per job, and changed evalue cutoff. for details check the diamond manual
+				diamond blastp -d DATABASE -q INPUT -o OUTPUT --more-sensitive -p 5 --index-chunks 1 --block-size 2 --tmpdir /workdir/qisun/tmp --quiet -e 1e-10 --compress 1
+				## set environment
+				export PATH=$HOME/orthofinder:$HOME/orthofinder/bin:/programs/diamond-0.9.22/diamond:/programs/muscle:/programs/RAxML-8.2.12:/programs/raxml-ng_v0.8.1:/programs/iqtree-1.6.10-Linux/bin:/programs/mafft/bin:$PATH
+				# Make an appropriate temp directory:
+				mkdir /workdir/tmp
+				## command, using diamond for alignment, use "-I 5" for tight cluster, run 4 jobs at a time, use /workdir/tmp as the tmp directory. "-f fasta": the directory name of input fasta files; -og stop after get ortholog groups.
+				orthofinder.py -S diamond -I 5 -t 4 -a 4 -f primary_transcripts -p /workdir/tmp -og
 
 
 # Now that I have groups of orthologous genes, I can proceed to hypothesis testing.
@@ -68,6 +177,8 @@
 
 # Estimating the correlation between traits of interest and the relative evolutionary rates of my orthologous genes with RERconverge:
 	# Prepare input files using Ben Rubin's script:
+		# Even though I only want to run the section that prepares input for RERconverge, I think I need to run the whole thing because it uses files created in previous steps.
+
 		# Install his stuff
 			# How to do this on the BioHPC????
 
@@ -76,18 +187,29 @@
 			conda install -c bioconda pyvcf
 			conda install -c bioconda ete3
 			conda install pysal
+			conda install paml
+
 			python -m pip install statsmodels
-
-		# edit utils.py to use stats.chi2 instead of chisqprob, which is deprecated (line should be `from scipy.stats import chi2`).
-		# You'll need to make some parameter files for input file creation:
-			# -e : requires a species tree, in Newick format. This can be found in ~OrthoFinder/Results_XXX/Species_Tree/SpeciesTree_rooted.txt
-			# --taxa_inclusion : takes a list of taxa that you require be included in the orthogroups. See Ben Rubin's github for details.
-
-		# Many of the scripts will need to be updated to python3; do this with :
+			# Many of the scripts will need to be updated to python3; do this with :
 			2to3 -w script.py
 
-		# Run the command to produce input files for RERconverge:
-		python selection_pipeline.py -a rer_converge -p 16 -b /Users/meganbarkdull/R/Genomics/PreparingRERconvergeInput/RERinputs -o ANT -t 3 --outputfile TestRERInputs --taxa_inclusion TaxaInclusion.txt -e SpeciesTree_rooted.txt
+		# First, align orthogroups:
+			python selection_pipeline.py -a write_orthos -b ./RubinAlignment -o ANT -r /Users/meganbarkdull/R/Genomics/OrthoFinder/primary_transcripts/OrthoFinder/Results_Feb18/Orthogroups/Orthogroups.txt -t 3 -d AlignmentParams.txt
+			# Currently when I do this I get a bunch of errors, ending with "Bio.Data.CodonTable.TranslationError: Codon 'MIY' is invalid".
+				# I think the params file needs to point to nucleotide sequences. so I'll need to download BOTH genomes and annotations for this part.
+
+
+
+		# Preparing input for RERconverge:
+			# edit utils.py to use stats.chi2 instead of chisqprob, which is deprecated (line should be `from scipy.stats import chi2`).
+			# You'll need to make some parameter files for input file creation:
+				# -e : requires a species tree, in Newick format. This can be found in ~OrthoFinder/Results_XXX/Species_Tree/SpeciesTree_rooted.txt
+				# --taxa_inclusion : takes a list of taxa that you require be included in the orthogroups. See Ben Rubin's github for details.
+
+
+
+				# Run the command to produce input files for RERconverge:
+				python selection_pipeline.py -a rer_converge -p 16 -b /Users/meganbarkdull/R/Genomics/PreparingRERconvergeInput/RERinputs -o ANT -t 3 --outputfile TestRERInputs --taxa_inclusion TaxaInclusion.txt -e SpeciesTree_rooted.txt
 
 
 		# Or I can figure out my own way to make RERconverge input files.
