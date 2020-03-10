@@ -11,11 +11,17 @@
 	# Make my own directory in the work directory, and set that directory to my working directory:
 	mkdir XXXXX
 	cd XXXXX
+	# Add programs that we will be using to the path:
+	export PATH=/programs/paml4.8/bin:$PATH
+	export PATH=/programs/trimal-1.4/source:$PATH
+	export PATH=/programs/Gblocks_0.91b:$PATH
+	export PATH=/programs/miniconda3/bin:$PATH
+	source activate ete3
 
 # Download the data files that you will need:
 	# You should download these in such a way that they are given sensible names from the start; this will particularly cause an error when making input for RERconverge, because the species tree will have node names that do not correspond to the four-character species codes used elsewhere.
 
-	# Orthofinder requires only annotation files (files of amino acid sequences).
+	# Orthofinder requires only protein sequence files (files of amino acid sequences).
 	# Ben Rubin's workflow requires the output of OrthoFinder, AND coding sequences for all of the genes (files of nucleotide sequences). These are transcript files, NOT genome files. Gene names in this file MUST correspond to gene names in the proteins file.
 		# Download transcripts:
 		wget https://antgenomes.org/downloads/transcripts/Atta_cephalotes/acep_genome.OGS.1.2.maker.transcripts.fasta.gz
@@ -97,7 +103,7 @@
 			# Also need to point to a particular PAML data file:
 				# Change from `/Genomics/kocherlab/berubin/local/src/paml4.9e/dat/jones.dat` to `/Users⁩/meganbarkdull⁩/bin⁩ /paml4.8⁩/dat⁩/jones.dat`
 			# Run the aligning command:
-			python selection_pipeline.py -a align_coding -p 16 -b ./RubinAlignment -o ANT -r /Users/meganbarkdull/R/Genomics/226Test/primary_transcripts/OrthoFinder/Results_Feb26/Orthogroups/Orthogroups.txt -t 3 -d AlignmentParams.txt
+			python selection_pipeline.py -a align_coding -p 16 -b ./RubinAlignment -o ANT -r /Users/meganbarkdull/R/GenomicsLocalWork/226Test/primary_transcripts/OrthoFinder/Results_Feb26/Orthogroups/Orthogroups.txt -t 3 -d AlignmentParams.txt
 				# This worked (took from about 2:30 to 1:04 am), except that some trimal files are missing and so a matrix for RAxML wasn't created.
 
 		# Run alignment filtering- this is the part that creates the needed index file!:
