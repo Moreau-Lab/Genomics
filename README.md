@@ -2,7 +2,7 @@ Comparative Genomic Analysis Workflow
 ================
 Megan Barkdull
 
-## Introduction
+## 1\. Introduction
 
 This repository hosts the workflow for a comparative genomics analysis.
 The general overview is: ![the workflow begins with downloading sequence
@@ -17,7 +17,7 @@ For the step where you must convert the outputs of OrthoFinder to be
 inputs for RERConverge, please see the [Comparative Genomics
 repository](https://github.com/mbarkdull/ComparativeGenomics)
 
-## Downloading sequence files:
+## 2\. Downloading sequence files:
 
 You can download sequence files from any source, as needed by your
 project. For this workflow, you will need:
@@ -39,7 +39,13 @@ Then be sure to unzip the files:
 
     gunzip *.fa.gz
 
-## Identifying orthologous genes with Orthofinder:
+It may also be a good idea at this point to give all of the downloaded
+input files logical and consistent names; for example
+`species1_proteinsequence.fa` and `species1_transcript.fa`.
+
+### Ensuring Consistency in Gene Names:
+
+## 3\. Identifying orthologous genes with Orthofinder:
 
 [Orthofinder](https://davidemms.github.io/) is a tool that infers groups
 of orthologous genes using gene trees. David Emms has a [great
@@ -71,5 +77,42 @@ Orthofinder](https://davidemms.github.io/orthofinder_tutorials/downloading-and-r
 
 Orthofinder requires input files that contain the amino acid sequences
 for all of the protein coding genes in your taxa of interest- in other
-words, the **protein sequence files** described in the Downloading
-Sequence Files section.
+words, the **protein sequence files** described in the [Downloading
+Sequence Files
+section](https://github.com/Moreau-Lab/Genomics#downloading-sequence-files).
+You should download these files to the working directory that you will
+use when running Orthofinder, and unzip them as [described
+above](https://github.com/Moreau-Lab/Genomics#downloading-sequence-files).
+
+#### Cleaning Up Input Files
+
+It is likely that your protein sequence files will contain many
+different transcripts per gene; running Orthofinder on all of these
+transcripts will greatly increase the time it takes and may lower the
+accuracy. Orthofinder comes with a script to extract just the longest
+transcript per gene, thus avoiding this problem.
+
+Run the clean-up script
+    with:
+
+    for f in *[common file ending of the protein sequence files.file extension] ; do python ~/orthofinder_tutorial/OrthoFinder/tools/primary_transcript.py $f ; done
+
+Change `[common file ending of the protein sequence files.file
+extension]` to reflect the file names of your protein sequence files.
+You may also have to alter the path to `primary_transcript.py` depending
+on where you have installed Orthofinder.
+
+#### Running Orthofinder
+
+To run Orthofinder on your cleaned protein sequence files, simply use
+the command
+
+    orthofinder -f primary_transcripts/
+
+Results will be sent to the directory
+`./primary_transcripts/OrthoFinder/Results_[DATE]/`.
+
+## 4\. Converting Orthofinder Output to RERconverge Input
+
+For this step, please check out [this
+ReadMe](https://github.com/mbarkdull/ComparativeGenomics/blob/devel/README.md).
