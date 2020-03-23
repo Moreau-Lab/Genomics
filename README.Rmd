@@ -77,3 +77,46 @@ Results will be sent to the directory `./primary_transcripts/OrthoFinder/Results
 
 ## 4. Converting Orthofinder Output to RERconverge Input
 For this step, please check out [this ReadMe](https://github.com/mbarkdull/ComparativeGenomics/blob/devel/README.md).
+
+You will want to copy the final RER inputs file to the working directory where you will run RERconverge, if it is not the same as the working directory for this step. 
+
+## 5. Using RERconverge 
+RERconverge is an R package that identifies genomics elements that have convergent (faster or slower) rates of evolution in species with convergent phenotypes (either binary or continuous phenotypes).
+
+### Citing RERconverge:
+Please cite RERconverge as follows:
+
+- **Description of software:**
+    + Kowalczyk A, Meyer WK, Partha R, Mao W, Clark NL, Chikina M. RERconverge: an R package for associating evolutionary rates with convergent traits. Pre-print at bioRxiv: https://doi.org/10.1101/451138
+- **Detailed description of latest methods:**
+    + Partha R, Kowalczyk A, Clark N, Chikina M. Robust methods for detecting convergent shifts in evolutionary rates. In press, Mol Biol Evol. Pre-print at bioRxiv: https://doi.org/10.1101/457309
+- **The following are the first demonstrations of analyses using the methods in RERconverge:**
+    + **In coding sequences:**
+      + Chikina M, Robinson JD, Clark NL. Hundreds of Genes Experienced Convergent Shifts in Selective Pressure in Marine Mammals. Mol Biol Evol. 2016;33: 2182–92. doi:10.1093/molbev/msw112
+    + **For conserved non-coding sequences:**
+      + Partha R, Chauhan B, Ferreira Z, Robinson J, Lathrop K, Nischal K, et al. Subterranean mammals show convergent regression in ocular genes and enhancers, along with adaptation to tunneling. eLife 2017;6:e25884. https://doi.org/10.7554/eLife.25884
+
+### Installing RERconverge:
+Refer to the [RERconverge install page](https://github.com/nclark-lab/RERconverge/wiki/Install) for detailed instructions on installation. 
+
+### Using RERconverge:
+
+#### Required Inputs
+RERconverge requires two types of data:
+
+1. **Phylogenetic trees** for every genomic element being examined. 
+   + Trees should be in Newick format, with tip labels and without node labels. 
+   + Trees should have branch lengths that represent element-specific evolutionary rates. 
+   + Tree topologies must all be subsets of the same species tree topology (no gene tree-species tree incongruence is allowed).
+2. **Vectors of phenotypic values** for each species. 
+    + Species labels must match the tip labels in the genomic element trees. 
+    + If you are examining a **continuous trait**, you should supply a named numeric vector of trait values. 
+    + If you are examing a **binary trait**, you should supply either:
+        + A vector of the foreground species names
+        + A Newick tree with background branches of length 0 and foreground branches of length 1
+        + Or you can specify the foreground branches via an interactive tool within RERconverge. 
+
+#### Using RERconverge within RStudio:
+##### Set your working directory:
+RERconverge is an R package, so we will be running it within R. First, be sure that your working directory in RStudio is [set to the working directory you are using](https://support.rstudio.com/hc/en-us/articles/200711843-Working-Directories-and-Workspaces) for your project. The best way to do this is probably to [create an R Project](https://support.rstudio.com/hc/en-us/articles/200526207) and associate it with that working directory. 
+#### Using RERconverge:
