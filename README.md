@@ -17,7 +17,7 @@ For the step where you must convert the outputs of OrthoFinder to be
 inputs for RERConverge, please see the [Comparative Genomics
 repository](https://github.com/mbarkdull/ComparativeGenomics)
 
-## 2\. Downloading sequence files:
+## 2\. Getting input files:
 
 You can download sequence files from any source, as needed by your
 project. For this workflow, you will need:
@@ -44,6 +44,34 @@ input files logical and consistent names; for example
 `species1_proteinsequence.fa` and `species1_transcript.fa`.
 
 ### Ensuring Consistency in Gene Names:
+
+When Ben Rubin’s pipeline is converting OrthoFinder outputs to
+RERconverge inputs, it will be crucial that the nucleotide sequence
+files and the amino acid sequence files contain the exact same gene
+names- and this probably will not be the case in the raw, downloaded
+files.
+
+To deal with this issue, you can just translate the transcript files to
+amino acids yourself, and then use those translated files as the input
+for Orthofinder. To do this, we will use the script
+`TranscriptFilesTranslateScript.py`.
+
+#### Using TranscriptFilesTranslateScript.py
+
+To use this script, your working directory needs to contain:
+
+  - All of the downloaded transcript files, in .fasta format
+  - The script TranscriptFilestranslateScript.py
+  - a parameters .txt file that specifies the path to all of transcript
+    files that you want to translate
+
+Then simply run the script with the command:
+
+`python ./TranscriptFilestranslateScript.py ParametersFile.txt`
+
+This should produce translated versions of each transcript file, with
+the file suffix “translated.fasta”. You will want to use these for input
+to RERconverge.
 
 ## 3\. Identifying orthologous genes with Orthofinder:
 
@@ -77,16 +105,14 @@ Orthofinder](https://davidemms.github.io/orthofinder_tutorials/downloading-and-r
 
 Orthofinder requires input files that contain the amino acid sequences
 for all of the protein coding genes in your taxa of interest- in other
-words, the **protein sequence files** described in the [Downloading
-Sequence Files
-section](https://github.com/Moreau-Lab/Genomics#downloading-sequence-files).
-You should download these files to the working directory that you will
-use when running Orthofinder, and unzip them as [described
-above](https://github.com/Moreau-Lab/Genomics#downloading-sequence-files).
+words, the **translated transcript files** produced as described
+[above](https://github.com/Moreau-Lab/Genomics#ensuring-consistency-in-gene-names).
+This is important, so that the OrthoFinder outputs can be easily
+converted into RERconverge inputs by Ben Rubin’s pipeline.
 
 #### Cleaning Up Input Files
 
-It is likely that your protein sequence files will contain many
+It is likely that your translated transcript files will contain many
 different transcripts per gene; running Orthofinder on all of these
 transcripts will greatly increase the time it takes and may lower the
 accuracy. Orthofinder comes with a script to extract just the longest
@@ -95,12 +121,13 @@ transcript per gene, thus avoiding this problem.
 Run the clean-up script
     with:
 
-    for f in *[common file ending of the protein sequence files.file extension] ; do python ~/orthofinder_tutorial/OrthoFinder/tools/primary_transcript.py $f ; done
+    for f in *[common file ending of the protein sequence files.file extension- e.g., translated.fasta] ; do python ~/orthofinder_tutorial/OrthoFinder/tools/primary_transcript.py $f ; done
 
 Change `[common file ending of the protein sequence files.file
-extension]` to reflect the file names of your protein sequence files.
-You may also have to alter the path to `primary_transcript.py` depending
-on where you have installed Orthofinder.
+extension]` to reflect the file names of your translated transcript
+files, which by default should be `translated.fasta`. You may also have
+to alter the path to `primary_transcript.py` depending on where you have
+installed Orthofinder.
 
 #### Running Orthofinder
 
@@ -116,6 +143,10 @@ Results will be sent to the directory
 
 For this step, please check out [this
 ReadMe](https://github.com/mbarkdull/ComparativeGenomics/blob/devel/README.md).
+
+You will want to copy the final RER inputs file to the working directory
+where you will run RERconverge, if it is not the same as the working
+directory for this step.
 
 ## 5\. Using RERconverge
 
@@ -192,4 +223,6 @@ directory you are
 using](https://support.rstudio.com/hc/en-us/articles/200711843-Working-Directories-and-Workspaces)
 for your project. The best way to do this is probably to [create an R
 Project](https://support.rstudio.com/hc/en-us/articles/200526207) and
-associate it with that working directory. \#\#\#\# Using RERconverge:
+associate it with that working directory.
+
+#### Using RERconverge:
