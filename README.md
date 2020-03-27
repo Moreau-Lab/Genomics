@@ -61,13 +61,13 @@ for Orthofinder. To do this, we will use the script
 To use this script, your working directory needs to contain:
 
   - All of the downloaded transcript files, in .fasta format
-  - The script TranscriptFilestranslateScript.py
+  - The script TranscriptFilesTranslateScript.py
   - a parameters .txt file that specifies the path to all of transcript
     files that you want to translate
 
 Then simply run the script with the command:
 
-`python ./TranscriptFilestranslateScript.py ParametersFile.txt`
+`python ./TranscriptFilesTranslateScript.py ParametersFile.txt`
 
 This should produce translated versions of each transcript file, with
 the file suffix “translated.fasta”. You will want to use these for input
@@ -128,6 +128,29 @@ extension]` to reflect the file names of your translated transcript
 files, which by default should be `translated.fasta`. You may also have
 to alter the path to `primary_transcript.py` depending on where you have
 installed Orthofinder.
+
+When Ben Rubin’s pipeline is converting OrthoFinder outputs to
+RERconverge inputs, it will be crucial that all of the gene names start
+with the taxon abbreviation that you are going to use.
+
+To do this, navigate to the `/primary_transcripts` directory:
+
+`cd ./primary_transcripts`
+
+Now use `sed` to append the four-character code to the beginning of each
+gene name. This command replaces `>` at the beginning of each gene name
+with `>CODE_`. This still has to be done one species at a time- I’ll try
+to come up with a better solution. The parameters in this command are:
+
+  - `-i` means save in place, overwriting the original file
+  - `s` means substitute
+  - `g` means global, so search and replace all.
+  - The two single quotes are probably not necessary on the BioHPC Linux
+    machines.
+
+So, for each translated transcript file, use the command:
+
+`sed -i '' 's/>/>CODE_/g' TranslatedTranscriptFile.fasta`
 
 #### Running Orthofinder
 
