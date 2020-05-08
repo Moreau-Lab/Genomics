@@ -171,7 +171,7 @@ You will want to copy the final RER inputs file to the working directory
 where you will run RERconverge, if it is not the same as the working
 directory for this step.
 
-## 5\. Using RERconverge
+## 5\. Assessing relative evolutionary rates with RERconverge
 
 RERconverge is an R package that identifies genomics elements that have
 convergent (faster or slower) rates of evolution in species with
@@ -248,4 +248,94 @@ for your project. The best way to do this is probably to [create an R
 Project](https://support.rstudio.com/hc/en-us/articles/200526207) and
 associate it with that working directory.
 
-#### Using RERconverge:
+#### Running RERconverge:
+
+## 6\. Analyzing orthogroups with Kinfin:
+
+Kinfin is a Python 2 package that helps you explore the results of your
+orthogroup analysis. Kinfin can produce a number of things:
+
+  - Visualizations of ortholog clustering, both in terms of orthogroup
+    size and taxon membership in each orthogroup.
+      - Kinfin creates a network diagram where nodes represent taxa and
+        edges are scaled to represent the number of times two taxa
+        co-occur in the same orthogroup.
+  - Analyses that compare user-defined sets of taxa based on their
+    membership in each orthogroup; for example, you could classify all
+    your taxa as herbivorous/nonherbivorous and identify orthogroups
+    that are enriched and depleted in the herbivores.
+      - Kinfin produces volcano plots to help you visualize these
+        results, but included in this Github repository is a
+        [script](https://github.com/Moreau-Lab/Genomics/blob/master/VolcanoPlot.R)
+        to allow you to generate your own, custom volcano plots.
+  - Classification of orthogroups into:
+      - *Present* for all members of a taxon set or for a particular
+        taxon
+      - *Absent* for all members of a taxon set or for a particular
+        taxon
+      - *Singleton*
+      - *Specific* to a particular taxon set
+      - *Shared* between taxon sets
+  - Identification of “fuzzy” single-copy orthogroups (i.e. orthogroups
+    with just one locus per species)
+  - Rarefaction curves
+  - Analyses based on functional annotation of the proteins and on
+    protein length
+  - Analysis of clusters that contain user-defined genes of interest
+
+### Citing Kinfin:
+
+Please cite Kinfin as follows:
+
+  - Laetsch DR and Blaxter ML, 2017. KinFin: Software for Taxon-Aware
+    Analysis of Clustered Protein Sequences. G3: Genes, Genomes,
+    Genetics. <Doi:10.1534/g3.117.300233>
+
+### Installing Kinfin:
+
+Follow the [instructions](https://kinfin.readme.io/docs/getting-started)
+for installation. Note that this is a Python 2.7 application, so you’ll
+need to be using Python 2.7 when running Kinfin. This can generally be
+achieved by installing a local copy of Python 2 with something like
+Homebrew, and then adding the path to that version of Python to your
+path variable. If you are on a Mac, I would suggest following [these
+instructions](https://medium.com/@yangnana11/installing-python-2-on-mac-os-x-d0f1c9c4d808).
+
+### Using Kinfin:
+
+#### Required inputs:
+
+Kinfin will require:
+
+  - The `Orthogroup.txt` file created by Orthofinder.
+  - The `SequenceIDs.txt` file created by Orthofinder.
+  - The `SpeciesIDs.txt` file created by Orthofinder.
+  - A `config.txt` file
+      - This can be created by executing the following Bash commands
+        once the above three files are in your working directory:
+          - `echo '#IDX,TAXON' > config.txt`
+          - `sed 's/: /,/g' SpeciesIDs.txt | \ cut -f 1 -d"." \ >>
+            config.txt`
+      - This will generate a two-column config file with one column for
+        taxon number and one column for taxon ID (the four letter
+        abbreviations that you have been using).
+      - You can then manually add columns to define your own taxon sets
+        (herbivores/nonherbivores, tropical/nontropical, etc.), giving
+        each taxon a 1 or 0 to define membership in the taxon set.
+  - There are other, optional input files if you want to run some of the
+    more involved analyses (regarding orthogroup function, for example).
+
+#### Running Kinfin:
+
+To run Kinfin, use the
+    command:
+
+    /PATHTOTHEKINFININSTALLATION/kinfin/kinfin --cluster_file Orthogroups.txt --config_file config.txt --sequence_ids_file SequenceIDs.txt 
+
+Change the path to the Kinfin installation to match your setup.
+
+#### Analyzing Kinfin outputs:
+
+I have created a
+[script](https://github.com/Moreau-Lab/Genomics/blob/master/VolcanoPlot.R)
+so that you can customize the volcano plots produced by Kinfin.
