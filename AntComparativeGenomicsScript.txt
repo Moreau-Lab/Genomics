@@ -1,3 +1,4 @@
+# Make sure to set up a VPN connection if working off campus. 
 # To run OrthoFinder on the BioHPC machines, be sure to reserve a medium memory generation 2, large memory generation 2 or extra large memory computer so that diamond can run.
 
 # Log onto the remote machine:
@@ -33,6 +34,10 @@
 		wget https://antgenomes.org/downloads/proteins/Atta_cephalotes/acep_genome.OGS.1.2.maker.proteins.fasta.gz
 		# Unzip all of the downloaded files:
 		gunzip *.fasta.gz
+
+# Use my script to translate the nucleotide files to amino acid sequences:
+python ./TranscriptFilesTranslateScript.py ParametersFile.txt
+
 
 # Find orthogroups with OrthoFinder:
 	# Clean up the annotation files:
