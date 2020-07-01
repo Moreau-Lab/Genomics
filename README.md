@@ -5,9 +5,10 @@ Megan Barkdull
 ## 1\. Introduction
 
 This repository hosts the workflow for a comparative genomics analysis.
-The general overview is: ![the workflow begins with downloading sequence
-files, then you identify orthologous genes with Orthofinder, then you
-test your hypotheses](./ComparativeGenomicsWorkflow.png)
+The general overview
+is:
+
+<img src="README_files/figure-gfm/unnamed-chunk-1-1.png" width="65%" style="display: block; margin: auto;" />
 
 Currently, all of the steps of the workflow are found in
 [AntComparativeGenomicsScript.txt](https://github.com/Moreau-Lab/Genomics/blob/master/AntComparativeGenomicsScript.txt).
@@ -250,7 +251,77 @@ associate it with that working directory.
 
 #### Running RERconverge:
 
-## 6\. Analyzing orthogroups with Kinfin:
+## 6\. Getting orthogroup annotations with InterProScan:
+
+InterProScan is a tool to functionally characterize nucleotide and amino
+acid sequences. Interproscan compares your sequences to databases of
+characterized sequences, calculates matches between the two, and ouputs
+functional annotations for your sequences in a variety of formats.
+
+In this pipeline, InterProScan will be used to characterize protein
+sequences, so that protein families (ie orthogroups) can be functionally
+annotated by Kinfin (see next section).
+
+### Citing InterProScan:
+
+InterProScan should be cited as:
+
+  - Philip Jones, David Binns, Hsin-Yu Chang, Matthew Fraser, Weizhong
+    Li, Craig McAnulla, Hamish McWilliam, John Maslen, Alex Mitchell,
+    Gift Nuka, Sebastien Pesseat, Antony F. Quinn, Amaia
+    Sangrador-Vegas, Maxim Scheremetjew, Siew-Yit Yong, Rodrigo Lopez,
+    and Sarah Hunter InterProScan 5: genome-scale protein function
+    classification. Bioinformatics, Jan 2014
+    (<doi:10.1093/bioinformatics/btu031>)
+
+InterPro, the underlying database, should also be cited as:
+
+  - Alex L Mitchell, Teresa K Attwood, Patricia C Babbitt, Matthias
+    Blum, Peer Bork, Alan Bridge, Shoshana D Brown, Hsin-Yu Chang, Sara
+    El-Gebali, Matthew I Fraser, Julian Gough, David R Haft, Hongzhan
+    Huang, Ivica Letunic, Rodrigo Lopez, Aurélien Luciani, Fabio
+    Madeira, Aron Marchler-Bauer, Huaiyu Mi, Darren A Natale, Marco
+    Necci, Gift Nuka, Christine Orengo, Arun P Pandurangan, Typhaine
+    Paysan-Lafosse, Sebastien Pesseat, Simon C Potter, Matloob A
+    Qureshi, Neil D Rawlings, Nicole Redaschi, Lorna J Richardson,
+    Catherine Rivoire, Gustavo A Salazar, Amaia Sangrador-Vegas,
+    Christian J A Sigrist, Ian Sillitoe, Granger G Sutton, Narmada
+    Thanki, Paul D Thomas, Silvio C E Tosatto, Siew-Yit Yong and Robert
+    D Finn InterPro in 2019: improving coverage, classification and
+    access to protein sequence annotations. Nucleic Acids Research, Jan
+    2019, (doi: 10.1093/nar/gky1100)
+
+### Installing InterProScan:
+
+InterProScan is designed for use only on Linux systems. Please see the
+installation instructions
+[here.](https://github.com/ebi-pf-team/interproscan/wiki/HowToDownload)
+
+### Using InterProScan:
+
+#### Required inputs:
+
+InterProScan requires input files of amino acid sequences, with no
+missing amino acid symbols (i.e. sequences cannot contain \*
+characters). You can use the outputs of Step 2 of this workflow as
+inputs to InterProScan; simply remove any forbidden characters by
+running the following Bash command: `sed -i "s/\*//g" *.fasta`
+
+InterProScan can take quite a long time to run on files that contain
+many sequences; therefore, I ran InterProScan on each genome
+individually, rather than concatenating them.
+
+#### Running InterProScan
+
+InterProScan can be run with the following
+    command:
+
+    PathToInterProScan/interproscan.sh -i GenomeFile.fasta -d out/ -t p --goterms -appl Pfam-28.0 -f TSV
+
+The outputs of InterProScan will next be concatenated and used as an
+input for Kinfin, below.
+
+## 7\. Analyzing orthogroups with Kinfin:
 
 Kinfin is a Python 2 package that helps you explore the results of your
 orthogroup analysis. Kinfin can produce a number of things:
@@ -305,7 +376,7 @@ instructions](https://medium.com/@yangnana11/installing-python-2-on-mac-os-x-d0f
 
 #### Required inputs:
 
-Kinfin will require:
+For the analysis that we will run, Kinfin will require:
 
   - The `Orthogroup.txt` file created by Orthofinder.
   - The `SequenceIDs.txt` file created by Orthofinder.
@@ -322,20 +393,126 @@ Kinfin will require:
       - You can then manually add columns to define your own taxon sets
         (herbivores/nonherbivores, tropical/nontropical, etc.), giving
         each taxon a 1 or 0 to define membership in the taxon set.
-  - There are other, optional input files if you want to run some of the
-    more involved analyses (regarding orthogroup function, for example).
+  - A file containing the functional annotation for each protein
+    sequence, as produced by InterProScan.
+      - If you ran InterProScan on individual genomes, you will need to
+        concatenate all of the InterProScan output files with:
+          - `cat *.tsv > all_proteins.tsv`
+      - Then you will need to convert this file to the format that
+        Kinfin wants, with:
+          - `/PATHTOTHEKINFININSTALLATION/kinfin/scripts/iprs2table.py
+            -i all_proteins.tsv --domain_sources Pfam`
+      - This will result in an input file called
+        `functional_annotation.txt`.
+
+There are other, optional input files if you want to run some of the
+more involved analyses (regarding gene length, for example).
 
 #### Running Kinfin:
 
 To run Kinfin, use the
     command:
 
-    /PATHTOTHEKINFININSTALLATION/kinfin/kinfin --cluster_file Orthogroups.txt --config_file config.txt --sequence_ids_file SequenceIDs.txt 
+    /PATHTOTHEKINFININSTALLATION/kinfin/kinfin --cluster_file Orthogroups.txt --config_file config.txt --sequence_ids_file SequenceIDs.txt --functional_annotation functional_annotation.txt
 
 Change the path to the Kinfin installation to match your setup.
 
-#### Analyzing Kinfin outputs:
+#### What outputs does Kinfin produce?
 
-I have created a
+Kinfin produces a variety of outputs.
+
+##### Orthogroup functional annotation results
+
+Kinfin assigns functional annotations to orthogroups, based on the
+functional annotations of their constituent proteins. These results are
+simply output as lists of orthogroups and corresponding annotation terms
+(GO terms, IPR terms, etc.). To meaningfully associate functional
+annotations with phenotypes, please see the section “Analyzing Kinfin
+outputs”, below.
+
+##### Orthogroup enrichment/depletion results
+
+Kinfin will identify orthogroups that are enriched or depleted in your
+taxon sets of interest (for example, which orthogroups are enriched in
+disease-causing helminths compared to free living helminths?).
+
+Kinfin produces default visualizations of these results in the form of
+volcano plots; however, I have created a
 [script](https://github.com/Moreau-Lab/Genomics/blob/master/VolcanoPlot.R)
 so that you can customize the volcano plots produced by Kinfin.
+
+#### Analyzing Kinfin outputs:
+
+We need to associate our phenotypes of interest with the functional
+categories of orthogroups that are enriched/depleted in relation to
+those phenotypes. To do so, we will use GOATOOLS (see section below);
+however, we must first clean and manipulate the Kinfin results so that
+they can be input to GOATOOLS.
+
+I have written an R script to do this; simply provide the paths to your
+particular Kinfin results, and the script will produce the necessary
+`study`, `population`, and `association` files for GOATOOLS.
+
+## 8\. Assessing GO term enrichment with GOATOOLS:
+
+GOATOOLS is a Python library that can carry out a number of tasks,
+including testing for over- and under-representation of GO terms in a
+set of genes (or in our case, orthogroups) of interest.
+
+### Citing GOATOOLS:
+
+Please cite GOATOOLS as:
+
+  - Klopfenstein DV, Zhang L, Pedersen BS, … Tang H GOATOOLS: A Python
+    library for Gene Ontology analyses Scientific reports | (2018)
+    8:10872 | <DOI:10.1038/s41598-018-28948-z>
+
+### Installing GOATOOLS:
+
+You will likely need to both install GOATOOLS and do some setup of
+GOATOOLS.
+
+To install GOATOOLS, run:
+
+    pip install goatools
+
+You will also want to clone the Git repository for GOATOOLS:
+
+    git clone https://github.com/tanghaibao/goatools.git
+
+You will need to download the file for the most up-to-date set of GO
+terms into the `./scripts` folder:
+
+    cd ./scripts
+    wget http://geneontology.org/ontology/go-basic.obo
+
+And you may need to install a few dependencies, as listed
+[here.](wget%20http://geneontology.org/ontology/go-basic.obo)
+
+### Using GOATOOLS:
+
+#### Required inputs:
+
+You will need:
+
+  - `study`: a tab-delimited text file containing the list of focal
+    orthogroups that you are interested in (in this case, the
+    orthogroups that are signifantly enriched or depleted in your taxon
+    set of interest).
+  - `population`: a tab-delimited text file containing the list of all
+    orthogroups in your study.
+  - `association`: a tab delimited text file with a column of orthogroup
+    names and a column containing a list of corresponding GO terms
+    separated by semicolons.
+
+Each of these input files is created by the R script
+`KinfinToGOATOOLS.R`.
+
+#### Running GOATOOLS:
+
+Make sure that you are in the `/goatools` directory created when you
+cloned the repository, and that your input files are in a subdirectory
+called `data`. To run GOATOOLS, execute the
+    command:
+
+    python goatools/scripts/find_enrichment.py --pval=0.05 --indent data/study data/population data/association
