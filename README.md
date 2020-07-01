@@ -449,9 +449,11 @@ those phenotypes. To do so, we will use GOATOOLS (see section below);
 however, we must first clean and manipulate the Kinfin results so that
 they can be input to GOATOOLS.
 
-I have written an R script to do this; simply provide the paths to your
-particular Kinfin results, and the script will produce the necessary
-`study`, `population`, and `association` files for GOATOOLS.
+I have written [an R script to do
+this](https://github.com/Moreau-Lab/Genomics/blob/master/KinfinToGOATOOLS.R);
+simply provide the paths to your particular Kinfin results, and the
+script will produce the necessary `study`, `population`, and
+`association` files for GOATOOLS.
 
 ## 8\. Assessing GO term enrichment with GOATOOLS:
 
