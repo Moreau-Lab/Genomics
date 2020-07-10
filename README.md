@@ -8,7 +8,7 @@ This repository hosts the workflow for a comparative genomics analysis.
 The general overview
 is:
 
-<img src="README_files/figure-gfm/unnamed-chunk-1-1.png" width="65%" style="display: block; margin: auto;" />
+<img src="README_files/figure-gfm/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 Currently, all of the steps of the workflow are found in
 [AntComparativeGenomicsScript.txt](https://github.com/Moreau-Lab/Genomics/blob/master/AntComparativeGenomicsScript.txt).
@@ -483,13 +483,12 @@ You will also want to clone the Git repository for GOATOOLS:
     git clone https://github.com/tanghaibao/goatools.git
 
 You will need to download the file for the most up-to-date set of GO
-terms into the `./scripts` folder:
+terms into your working directory:
 
-    cd ./scripts
     wget http://geneontology.org/ontology/go-basic.obo
 
 And you may need to install a few dependencies, as listed
-[here.](wget%20http://geneontology.org/ontology/go-basic.obo)
+[here.](https://github.com/tanghaibao/goatools#dependencies)
 
 ### Using GOATOOLS:
 
@@ -514,7 +513,8 @@ Each of these input files is created by the R script
 
 Make sure that you are in the `/goatools` directory created when you
 cloned the repository, and that your input files are in a subdirectory
-called `data`. To run GOATOOLS, execute the
-    command:
+called `data`. To run GOATOOLS, execute the command (where PHENOTYPE is
+the particular phenotype examined in the files you are using as
+    input):
 
-    python goatools/scripts/find_enrichment.py --pval=0.05 --indent data/study data/population data/association
+    python goatools/scripts/find_enrichment.py --pval=0.05 --indent data/studyPHENOTYPE data/populationPHENOTYPE data/associationPHENOTYPE > ./results/resultsPHENOTYPE.txt

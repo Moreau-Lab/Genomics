@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This repository hosts the workflow for a comparative genomics analysis. The general overview is:
 
-```{r, echo = FALSE, out.width = '65%', fig.align = 'center'}
+```{r, echo = FALSE, fig.align = 'center'}
 library(DiagrammeR)
 grViz("digraph flowchart {
       # node definitions with substituted label text
@@ -29,20 +29,27 @@ grViz("digraph flowchart {
       tab7 [label = '@@7']
       tab8 [label = '@@8']
       tab9 [label = '@@9']
+      tab10 [label = '@@10']
+      tab11 [label = '@@11']
       # edge definitions with the node IDs
       tab1 -> tab2 -> tab3 -> tab4 -> tab5 -> tab9;
       tab2 -> tab6 -> tab7 -> tab8 -> tab9;
-      tab3 -> tab8;      
+      tab3 -> tab8;
+      tab1 -> tab10 -> tab11;
+      tab4 -> tab11;
+      tab3 -> tab10;
       }
-      [1]: 'Download data'
-      [2]: 'Clean data'
-      [3]: 'Run Orthofinder'
-      [4]: 'Infer gene trees with Rubin pipeline'
-      [5]: 'Run RERconverge'
+      [1]: 'Download the coding sequences for each species'
+      [2]: 'Clean data; translate coding sequences to amino acid sequences'
+      [3]: 'Run Orthofinder on the amino acid sequences'
+      [4]: 'Infer gene trees with Rubin pipeline using the coding sequences'
+      [5]: 'Run RERconverge on the gene trees'
       [6]: 'Annotate genes with InterProScan'
       [7]: 'Concatenate InterProScan results'
-      [8]: 'Run Kinfin'
+      [8]: 'Run Kinfin on the Orthofinder results'
       [9]: 'Test for enrichment with GOATOOLS'
+      [10]: 'Use PAL2NAL to create sequence-aware nucleotide alignments'
+      [11]: 'Used BustedS to test for positive selection'
       ")
 ```
 
@@ -310,13 +317,12 @@ You will also want to clone the Git repository for GOATOOLS:
 git clone https://github.com/tanghaibao/goatools.git
 ```
 
-You will need to download the file for the most up-to-date set of GO terms into the `./scripts` folder:
+You will need to download the file for the most up-to-date set of GO terms into your working directory:
 ```
-cd ./scripts
 wget http://geneontology.org/ontology/go-basic.obo
 ```
 
-And you may need to install a few dependencies, as listed [here.](wget http://geneontology.org/ontology/go-basic.obo) 
+And you may need to install a few dependencies, as listed [here.](https://github.com/tanghaibao/goatools#dependencies) 
 
 ### Using GOATOOLS:
 
@@ -330,7 +336,7 @@ You will need:
 Each of these input files is created by the R script `KinfinToGOATOOLS.R`. 
 
 #### Running GOATOOLS:
-Make sure that you are in the `/goatools` directory created when you cloned the repository, and that your input files are in a subdirectory called `data`. To run GOATOOLS, execute the command:
+Make sure that you are in the `/goatools` directory created when you cloned the repository, and that your input files are in a subdirectory called `data`. To run GOATOOLS, execute the command (where PHENOTYPE is the particular phenotype examined in the files you are using as input):
 ```
-python goatools/scripts/find_enrichment.py --pval=0.05 --indent data/study data/population data/association
+python goatools/scripts/find_enrichment.py --pval=0.05 --indent data/studyPHENOTYPE data/populationPHENOTYPE data/associationPHENOTYPE > ./results/resultsPHENOTYPE.txt
 ```
